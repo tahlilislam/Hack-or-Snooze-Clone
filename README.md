@@ -9,7 +9,7 @@ We’ve already built the backend server API, so you’ll focus on learning to u
 
 ## **Part 0: Explore Working Version and API**
 
-Explore the [working copy of our solution](https://hack-or-snooze-springboard.netlify.app/). It will help you to try how the app works, and what features you’ll build *before* digging into the source code.
+Explore the [working copy of our solution]. It will help you to try how the app works, and what features you’ll build *before* digging into the source code.
 
 <aside>
 💡 **Turn on your browser console!**
