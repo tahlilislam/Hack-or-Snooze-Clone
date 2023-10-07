@@ -52,8 +52,13 @@ async function start() {
   await getAndShowStoriesOnStart();
 
   // if we got a logged-in user
-  if (currentUser) updateUIOnUserLogin();
-}
+  if (currentUser) {
+    updateUIOnUserLogin();
+  }
+  else {
+    $(".main-nav-links").hide();
+  }  
+} 
 
 // Once the DOM is entirely loaded, begin the app
 

@@ -113,8 +113,6 @@ function updateUIOnUserLogin() {
 
   // $allStoriesList.show();
 
-  // updateNavOnLogin();
-
   hidePageComponents();
 
   // re-display stories (so that "favorite" stars can appear)
@@ -124,5 +122,5 @@ function updateUIOnUserLogin() {
 
   updateNavOnLogin();
 
-  // $storiesContainer.show()
+  $storiesContainer.show();
 }

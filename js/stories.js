@@ -25,15 +25,22 @@ function generateStoryMarkup(story, showDeleteBtn = false) {
   const hostName = story.getHostName();
   //function call isStoryFavorite returns true or false values;
   //identifying if a given story is a favorite story and checking it on the UI
-  const isChecked = isStoryFavorite(story.storyId) ? "checked" : "";
+  const isUserLoggedIn = currentUser ? true : false;
+  const isChecked =
+    isUserLoggedIn && currentUser.isStoryFavorite(story.storyId)
+      ? "checked"
+      : "";
 
   // Check if delete button should be visible or not
   const deleteButtonClass = showDeleteBtn ? "" : "invisible";
 
+  //Remove star if user is not looged in
+  const favoriteCheckboxClass = isUserLoggedIn ? "" : "invisible";
+
   return $(`
       <li id="${story.storyId}">
       <i class="fas fa-trash-alt delete-story-btn ${deleteButtonClass}"></i>
-      <input type="checkbox" class ="star" ${isChecked}>
+      <input type="checkbox" class ="star ${favoriteCheckboxClass}" ${isChecked}>
       <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -53,7 +60,7 @@ function putStoriesOnPage() {
 
   // loop through all of our stories and generate HTML for them
   for (let story of storyList.stories) {
-    const $story = generateStoryMarkup(story);
+    const $story = generateStoryMarkup(story, false);
     $allStoriesList.append($story);
   }
 
@@ -91,7 +98,6 @@ async function addNewStoryOnPage(event) {
 
   const newStory = await storyList.addStory(currentUser, newStoryData);
 
-
   // currentUser.ownStories.push(newStory);
 
   putStoriesOnPage();
@@ -115,7 +121,6 @@ async function deleteStoryClick(evt) {
   putStoriesOnMyStories();
 }
 $myStoriesList.on("click", ".delete-story-btn", deleteStoryClick);
-
 
 // Adds favorited stories on the favorites tab
 function addOnFavoritesPage() {
@@ -154,8 +159,3 @@ async function toggleStoryFavorite(evt) {
 }
 
 $storiesLists.on("click", ".star", toggleStoryFavorite);
-
-// Function for handling checked values for favorite stories in GenerateStoryMarkUp function
-function isStoryFavorite(storyId) {
-  return currentUser.favorites.some((s) => s.storyId === storyId);
-}

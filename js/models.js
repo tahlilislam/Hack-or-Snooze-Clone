@@ -83,7 +83,7 @@ class StoryList {
     });
     const story = new Story(response.data.story);
     this.stories.unshift(story);
-    
+
     // Append the new story to currentUser's own stories to update local state
     user.ownStories.unshift(story);
     return story;
@@ -257,4 +257,10 @@ class User {
     }
     this.favorites.splice(index, 1);
   }
+
+  // Function for handling checked values for favorite stories in GenerateStoryMarkUp function
+isStoryFavorite(storyId) {
+  return currentUser.favorites.some((s) => s.storyId === storyId);
+}
+
 }
